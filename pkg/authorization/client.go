@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// Auth client
 type Client struct {
 	httpClient http.Client
 	namespace  string
