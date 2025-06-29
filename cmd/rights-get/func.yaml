@@ -1,5 +1,5 @@
 specVersion: 0.36.0
-name: getRights
+name: rights-get
 runtime: go
 registry: registry.final.tools/cluster
 namespace: testing-dev
