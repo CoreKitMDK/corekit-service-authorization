@@ -13,10 +13,12 @@ var (
 	TestResourceID = uuid.MustParse("11111111-1111-1111-1111-111111111111")
 	TestRightID1   = uuid.MustParse("22222222-2222-2222-2222-222222222222")
 	TestRightID2   = uuid.MustParse("33333333-3333-3333-3333-333333333333")
+	Namespace      = "testing-dev"
 )
 
 func TestClient_GiveRights(t *testing.T) {
 	client := NewClient(nil)
+	client.namespace = Namespace
 
 	giveRightsReq := GiveRightsRequest{
 		Entity: TestEntityID,
@@ -46,6 +48,7 @@ func TestClient_GiveRights(t *testing.T) {
 
 func TestClient_GetRights(t *testing.T) {
 	client := NewClient(nil)
+	client.namespace = Namespace
 
 	getRightsReq := GetRightsRequest{
 		Entity: TestEntityID,
@@ -61,6 +64,7 @@ func TestClient_GetRights(t *testing.T) {
 
 func TestClient_HasRights(t *testing.T) {
 	client := NewClient(nil)
+	client.namespace = Namespace
 
 	hasRightsReq := HasRightsRequest{
 		Entity:    TestEntityID,
@@ -76,6 +80,7 @@ func TestClient_HasRights(t *testing.T) {
 
 func TestClient_RevokeRights(t *testing.T) {
 	client := NewClient(nil)
+	client.namespace = Namespace
 
 	revokeRightsReq := RevokeRightsRequest{
 		Entity: TestEntityID,
