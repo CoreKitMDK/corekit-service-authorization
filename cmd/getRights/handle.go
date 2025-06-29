@@ -2,10 +2,9 @@ package function
 
 import (
 	"encoding/json"
+	"github.com/CoreKitMDK/corekit-service-authorization/v2/pkg/authorization"
 	"net/http"
 
-	"github.com/CoreKitMDK/corekit-service-authorization/v2/internal/authorization"
-	"github.com/CoreKitMDK/corekit-service-authorization/v2/pkg/authorization"
 	"github.com/CoreKitMDK/corekit-service-core/v2/pkg/core"
 	"github.com/CoreKitMDK/corekit-service-logger/v2/pkg/logger"
 )
