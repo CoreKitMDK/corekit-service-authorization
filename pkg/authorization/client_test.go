@@ -1,6 +1,8 @@
 package authorization
 
 import (
+	"encoding/json"
+	"fmt"
 	"testing"
 
 	"github.com/google/uuid"
@@ -9,11 +11,12 @@ import (
 
 var (
 	// Global UUIDs for consistent testing
-	TestEntityID   = uuid.MustParse("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11")
-	TestResourceID = uuid.MustParse("11111111-1111-1111-1111-111111111111")
-	TestRightID1   = uuid.MustParse("22222222-2222-2222-2222-222222222222")
-	TestRightID2   = uuid.MustParse("33333333-3333-3333-3333-333333333333")
-	Namespace      = "testing-dev"
+	TestEntityID    = uuid.MustParse("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11")
+	TestResourceID  = uuid.MustParse("11111111-1111-1111-1111-111111111111")
+	TestResourceID2 = uuid.MustParse("22222222-2222-2222-2222-222222222222")
+	TestRightID1    = uuid.MustParse("22222222-2222-2222-2222-222222222222")
+	TestRightID2    = uuid.MustParse("33333333-3333-3333-3333-333333333333")
+	Namespace       = "testing-dev"
 )
 
 func TestClient_GiveRights(t *testing.T) {
@@ -27,6 +30,19 @@ func TestClient_GiveRights(t *testing.T) {
 				UID:       TestRightID1,
 				Entity:    TestEntityID,
 				Resource:  TestResourceID,
+				Read:      true,
+				Write:     true,
+				Delete:    false,
+				Share:     false,
+				Custom:    map[string]bool{"admin": true},
+				AssetType: "test_asset",
+				Active:    true,
+				Created:   1678886400,
+			},
+			TestResourceID2.String(): {
+				UID:       TestRightID2,
+				Entity:    TestEntityID,
+				Resource:  TestResourceID2,
 				Read:      true,
 				Write:     true,
 				Delete:    false,
@@ -55,6 +71,12 @@ func TestClient_GetRights(t *testing.T) {
 	}
 
 	resp, err := client.GetRights(&getRightsReq)
+
+	jsonResp, err := json.Marshal(resp)
+	if err == nil {
+		fmt.Printf("Response: %s\n", string(jsonResp))
+	}
+
 	assert.NoError(t, err)
 	assert.NotNil(t, resp)
 	assert.True(t, resp.Valid)
@@ -68,7 +90,7 @@ func TestClient_HasRights(t *testing.T) {
 
 	hasRightsReq := HasRightsRequest{
 		Entity:    TestEntityID,
-		Resources: []string{TestResourceID.String(), TestResourceID.String()},
+		Resources: []string{TestResourceID.String(), TestResourceID2.String()},
 	}
 
 	resp, err := client.HasRights(&hasRightsReq)
@@ -84,7 +106,7 @@ func TestClient_RevokeRights(t *testing.T) {
 
 	revokeRightsReq := RevokeRightsRequest{
 		Entity: TestEntityID,
-		Rights: []uuid.UUID{TestRightID1, TestRightID2},
+		Rights: []uuid.UUID{TestRightID1, TestRightID2, TestResourceID},
 	}
 
 	resp, err := client.RevokeRights(&revokeRightsReq)

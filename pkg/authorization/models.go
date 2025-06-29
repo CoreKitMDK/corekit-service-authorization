@@ -1,6 +1,8 @@
 package authorization
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+)
 
 type HasRightsRequest struct {
 	Entity    uuid.UUID
@@ -67,4 +69,11 @@ type Right struct {
 
 	Active  bool
 	Created int64
+}
+
+func NewRight() Right {
+	return Right{
+		UID:    uuid.Must(uuid.NewV7()),
+		Custom: make(map[string]bool),
+	}
 }
