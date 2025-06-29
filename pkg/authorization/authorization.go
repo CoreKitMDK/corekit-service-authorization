@@ -100,13 +100,13 @@ func (dal *AuthorizationDAL) GetRights(req *GetRightsRequest) (*GetRightsRespons
 	}
 	defer rows.Close()
 
-	var rights []Right
+	rights := make(map[string]Right)
 	for rows.Next() {
 		var r Right
 		if err := rows.Scan(&r.UID, &r.Entity, &r.Resource, &r.Read, &r.Write, &r.Delete, &r.Share, &r.Custom, &r.UsageTotal, &r.UsageUsed, &r.UsageResetsInSeconds, &r.AssetType, &r.Active, &r.Created); err != nil {
 			return &GetRightsResponse{Valid: false, Error: err.Error()}, nil
 		}
-		rights = append(rights, r)
+		rights[r.UID.String()] = r
 	}
 
 	return &GetRightsResponse{

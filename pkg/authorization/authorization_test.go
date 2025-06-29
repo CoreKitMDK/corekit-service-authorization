@@ -73,7 +73,7 @@ func TestAuthorizationDAL(t *testing.T) {
 	// 2. GetRights (List)
 	getReq := &GetRightsRequest{Entity: testEntity}
 	getResp, err := dal.GetRights(getReq)
-	if err != nil || !getResp.Valid || len(getResp.Rights) != 1 || getResp.Rights[0].UID != testRightUID {
+	if err != nil || !getResp.Valid || len(getResp.Rights) != 1 || getResp.Rights[testRightUID.String()].UID != testRightUID {
 		t.Fatalf("GetRights failed or returned unexpected result: %v, %v", err, getResp)
 	}
 

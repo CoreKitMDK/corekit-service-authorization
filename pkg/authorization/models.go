@@ -42,7 +42,7 @@ type GetRightsRequest struct {
 
 type GetRightsResponse struct {
 	Entity uuid.UUID
-	Rights []Right
+	Rights map[string]Right
 	Valid  bool
 	Error  string
 }
