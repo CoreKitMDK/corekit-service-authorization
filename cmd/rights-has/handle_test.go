@@ -41,9 +41,7 @@ func TestHandle(t *testing.T) {
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
-	if err == nil {
-		fmt.Println(string(body))
-	}
+	fmt.Println(string(body))
 
 	if res.StatusCode != 200 {
 		t.Fatalf("unexpected response code: %v", res.StatusCode)

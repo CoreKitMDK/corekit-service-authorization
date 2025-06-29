@@ -24,7 +24,7 @@ func TestClient_GiveRights(t *testing.T) {
 		Entity: TestEntityID,
 		Rights: map[string]Right{
 			TestResourceID.String(): {
-				UID:       TestResourceID,
+				UID:       TestRightID1,
 				Entity:    TestEntityID,
 				Resource:  TestResourceID,
 				Read:      true,
@@ -68,7 +68,7 @@ func TestClient_HasRights(t *testing.T) {
 
 	hasRightsReq := HasRightsRequest{
 		Entity:    TestEntityID,
-		Resources: []string{TestResourceID.String(), "resource2"},
+		Resources: []string{TestResourceID.String(), TestResourceID.String()},
 	}
 
 	resp, err := client.HasRights(&hasRightsReq)
