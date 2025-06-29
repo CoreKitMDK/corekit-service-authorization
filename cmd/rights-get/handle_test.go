@@ -14,8 +14,6 @@ import (
 	"github.com/google/uuid"
 )
 
-// TestHandle ensures that Handle executes without error and returns the
-// HTTP 200 status code indicating no errors.
 func TestHandle(t *testing.T) {
 	entityID, _ := uuid.Parse("8079da42-69f9-4aa1-a4fe-58d312797d7a")
 
