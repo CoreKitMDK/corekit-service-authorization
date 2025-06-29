@@ -1,0 +1,1 @@
+kuebctl apply -k .
