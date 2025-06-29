@@ -32,7 +32,7 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 	caller := r.Header.Get("Caller")
 
-	var req GetRightsRequest
+	var req authorization.GetRightsRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		Core.Logger.Log(logger.ERROR, "failed to decode request body for caller: "+caller+", error: "+err.Error())
 		http.Error(w, "invalid request body", http.StatusBadRequest)
