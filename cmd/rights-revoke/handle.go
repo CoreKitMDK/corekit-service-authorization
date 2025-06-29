@@ -2,6 +2,7 @@ package function
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/CoreKitMDK/corekit-service-authorization/v2/pkg/authorization"
 	"net/http"
 
@@ -41,7 +42,7 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := dal.RevokeRights(&req)
 	if err != nil {
-		Core.Logger.Log(logger.ERROR, "failed to get rights for caller: "+caller+", error: "+err.Error())
+		Core.Logger.Log(logger.ERROR, "failed to revoke rights for caller: "+caller+", error: "+err.Error())
 		http.Error(w, "internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -52,9 +53,18 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	respBytes, err := json.Marshal(resp)
+	if err != nil {
+		Core.Logger.Log(logger.ERROR, "failed to marshal response for caller: "+caller+", error: "+err.Error())
+		http.Error(w, "internal server error", http.StatusInternalServerError)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(resp); err != nil {
-		Core.Logger.Log(logger.ERROR, "failed to encode response for caller: "+caller+", error: "+err.Error())
+	w.Header().Set("Content-Length", fmt.Sprintf("%d", len(respBytes)))
+	w.WriteHeader(http.StatusOK)
+	if _, err := w.Write(respBytes); err != nil {
+		Core.Logger.Log(logger.ERROR, "failed to write response for caller: "+caller+", error: "+err.Error())
 		return
 	}
 

@@ -41,7 +41,7 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := dal.HasRights(&req)
 	if err != nil {
-		Core.Logger.Log(logger.ERROR, "failed to get rights for caller: "+caller+", error: "+err.Error())
+		Core.Logger.Log(logger.ERROR, "failed to check rights for caller: "+caller+", error: "+err.Error())
 		http.Error(w, "internal server error", http.StatusInternalServerError)
 		return
 	}
