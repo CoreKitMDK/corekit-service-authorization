@@ -17,13 +17,16 @@ import (
 // TestHandle ensures that Handle executes without error and returns the
 // HTTP 200 status code indicating no errors.
 func TestHandle(t *testing.T) {
-	entityID, _ := uuid.Parse("8079da42-69f9-4aa1-a4fe-58d312797d7a")
+	entityID := uuid.New()
+	rightID1 := uuid.New()
+	rightID2 := uuid.New()
 
-	getRightsReq := authorization.GetRightsRequest{
+	revokeRightsReq := authorization.RevokeRightsRequest{
 		Entity: entityID,
+		Rights: []uuid.UUID{rightID1, rightID2},
 	}
 
-	reqBody, err := json.Marshal(getRightsReq)
+	reqBody, err := json.Marshal(revokeRightsReq)
 	if err != nil {
 		t.Fatalf("failed to marshal request body: %v", err)
 	}

@@ -56,12 +56,12 @@ func (dal *AuthorizationDAL) GiveRights(req *GiveRightsRequest) (*GiveRightsResp
 	}
 	defer tx.Rollback(context.Background())
 
-	for resource, right := range req.Rights {
+	for _, right := range req.Rights {
 		query := `INSERT INTO rights (uid, entity, resource, read, write, delete, share, custom, usage_total, usage_used, usage_resets_in_seconds, asset_type, active, created)
 				   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
 				   ON CONFLICT (uid) DO UPDATE SET
 				   read = $4, write = $5, delete = $6, share = $7, custom = $8, usage_total = $9, usage_used = $10, usage_resets_in_seconds = $11, asset_type = $12, active = $13, created = $14`
-		_, err := tx.Exec(context.Background(), query, right.UID, req.Entity, resource, right.Read, right.Write, right.Delete, right.Share, right.Custom, right.UsageTotal, right.UsageUsed, right.UsageResetsInSeconds, right.AssetType, right.Active, right.Created)
+		_, err := tx.Exec(context.Background(), query, right.UID, req.Entity, right.Resource, right.Read, right.Write, right.Delete, right.Share, right.Custom, right.UsageTotal, right.UsageUsed, right.UsageResetsInSeconds, right.AssetType, right.Active, right.Created)
 		if err != nil {
 			return &GiveRightsResponse{Valid: false, Error: err.Error()}, nil
 		}

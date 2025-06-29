@@ -17,13 +17,29 @@ import (
 // TestHandle ensures that Handle executes without error and returns the
 // HTTP 200 status code indicating no errors.
 func TestHandle(t *testing.T) {
-	entityID, _ := uuid.Parse("8079da42-69f9-4aa1-a4fe-58d312797d7a")
+	entityID := uuid.New()
+	resourceID := uuid.New()
 
-	getRightsReq := authorization.GetRightsRequest{
+	giveRightsReq := authorization.GiveRightsRequest{
 		Entity: entityID,
+		Rights: map[string]authorization.Right{
+			resourceID.String(): {
+				UID:       resourceID,
+				Entity:    entityID,
+				Resource:  resourceID,
+				Read:      true,
+				Write:     true,
+				Delete:    false,
+				Share:     false,
+				Custom:    map[string]bool{"admin": true},
+				AssetType: "test_asset",
+				Active:    true,
+				Created:   time.Now().Unix(),
+			},
+		},
 	}
 
-	reqBody, err := json.Marshal(getRightsReq)
+	reqBody, err := json.Marshal(giveRightsReq)
 	if err != nil {
 		t.Fatalf("failed to marshal request body: %v", err)
 	}
