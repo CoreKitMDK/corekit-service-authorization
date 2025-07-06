@@ -36,7 +36,6 @@ func TestClient_GiveRights(t *testing.T) {
 				Share:     false,
 				Custom:    map[string]bool{"admin": true},
 				AssetType: "test_asset",
-				CreatedAt: 1678886400,
 			},
 			TestResourceID2.String(): {
 				UID:       TestRightID2,
@@ -48,7 +47,6 @@ func TestClient_GiveRights(t *testing.T) {
 				Share:     false,
 				Custom:    map[string]bool{"admin": true},
 				AssetType: "test_asset",
-				CreatedAt: 1678886400,
 			},
 		},
 	}
