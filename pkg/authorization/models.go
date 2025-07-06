@@ -67,8 +67,7 @@ type Right struct {
 
 	AssetType string
 
-	Active  bool
-	Created int64
+	CreatedAt int64
 }
 
 func NewRight() Right {

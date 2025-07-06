@@ -1,3 +1,10 @@
+CREATE OR REPLACE FUNCTION current_epoch()
+RETURNS BIGINT AS $$
+BEGIN
+RETURN extract(epoch from now());
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TABLE IF NOT EXISTS rights (
     uid UUID PRIMARY KEY,
     entity UUID NOT NULL,
@@ -11,6 +18,6 @@ CREATE TABLE IF NOT EXISTS rights (
     usage_used INTEGER NOT NULL DEFAULT 0,
     usage_resets_in_seconds BIGINT NOT NULL DEFAULT 0,
     asset_type TEXT,
-    active BOOLEAN NOT NULL DEFAULT false,
-    created BIGINT NOT NULL
+    created_at BIGINT NOT NULL DEFAULT current_epoch(),
+    active BOOLEAN NOT NULL DEFAULT true
 );

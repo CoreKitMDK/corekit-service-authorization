@@ -1,5 +1,6 @@
 github.com/CoreKitMDK/corekit-service-authorization/v2 v2.0.1 h1:XufJjrJW396Wyo4SVI6aIuu0OvXhjylN2OVzyNUJ3Sk=
 github.com/CoreKitMDK/corekit-service-authorization/v2 v2.0.1/go.mod h1:mo98bqSzkbs3JSaUhbOm2LynxWXRXMcnllU+foulWMA=
+github.com/CoreKitMDK/corekit-service-authorization/v2 v2.0.2/go.mod h1:w7z1o6F0dj/Tzc57EUXQZB5lEfJwggsPlNPleCnp7HI=
 github.com/CoreKitMDK/corekit-service-configuration/v2 v2.0.1 h1:80KcFy59baSd+rPoYCp2UF/V2sZo8Jzcoa9zPwNPL68=
 github.com/CoreKitMDK/corekit-service-configuration/v2 v2.0.1/go.mod h1:TOgwjOvIEHCzjod/FmrZ9l7f+7yfas8pdmbTRQY8Y6o=
 github.com/CoreKitMDK/corekit-service-core/v2 v2.0.0-20250629085202-db1ab1f3d980 h1:Tb92s0ZNMPN5RRc1tbdwyDwOOrbdwLcjDBrCnNtOGaM=

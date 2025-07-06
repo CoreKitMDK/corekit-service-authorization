@@ -1,13 +1,10 @@
 package authorization
 
 import (
-	"context"
 	"github.com/CoreKitMDK/corekit-service-core/v2/pkg/core"
 	"github.com/CoreKitMDK/corekit-service-logger/v2/pkg/logger"
-	"testing"
-	"time"
-
 	"github.com/google/uuid"
+	"testing"
 )
 
 func TestAuthorizationDAL(t *testing.T) {
@@ -23,30 +20,6 @@ func TestAuthorizationDAL(t *testing.T) {
 	}
 	defer dal.Close()
 
-	// Ensure table exists for testing
-	_, err = dal.db.Exec(context.Background(), `CREATE TABLE IF NOT EXISTS rights (
-		uid UUID PRIMARY KEY,
-		entity UUID NOT NULL,
-		resource UUID NOT NULL,
-		read BOOLEAN NOT NULL DEFAULT false,
-		write BOOLEAN NOT NULL DEFAULT false,
-		"delete" BOOLEAN NOT NULL DEFAULT false,
-		share BOOLEAN NOT NULL DEFAULT false,
-		custom JSONB,
-		usage_total INTEGER NOT NULL DEFAULT 0,
-		usage_used INTEGER NOT NULL DEFAULT 0,
-		usage_resets_in_seconds BIGINT NOT NULL DEFAULT 0,
-		asset_type TEXT,
-		active BOOLEAN NOT NULL DEFAULT false,
-		created BIGINT NOT NULL
-	);`)
-	if err != nil {
-		t.Fatalf("Failed to create rights table: %v", err)
-	}
-
-	// Cleanup after test
-	defer dal.db.Exec(context.Background(), "DELETE FROM rights WHERE entity = $1", 123)
-
 	testEntity := uuid.New()
 	testRightUID := uuid.New()
 	testResource := uuid.New()
@@ -60,8 +33,6 @@ func TestAuthorizationDAL(t *testing.T) {
 				Entity:   testEntity,
 				Resource: testResource,
 				Read:     true,
-				Created:  time.Now().Unix(),
-				Active:   true,
 			},
 		},
 	}
