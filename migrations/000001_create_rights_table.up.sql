@@ -19,5 +19,6 @@ CREATE TABLE IF NOT EXISTS rights (
     usage_resets_in_seconds BIGINT NOT NULL DEFAULT 0,
     asset_type TEXT,
     created_at BIGINT NOT NULL DEFAULT current_epoch(),
-    active BOOLEAN NOT NULL DEFAULT true
+    active BOOLEAN NOT NULL DEFAULT true,
+    deleted_at BIGINT
 );

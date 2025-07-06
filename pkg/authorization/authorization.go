@@ -78,7 +78,7 @@ func (dal *AuthorizationDAL) GiveRights(req *GiveRightsRequest) (*GiveRightsResp
 }
 
 func (dal *AuthorizationDAL) RevokeRights(req *RevokeRightsRequest) (*RevokeRightsResponse, error) {
-	query := "UPDATE rights SET active = false WHERE entity = $1 AND uid = ANY($2)"
+	query := "UPDATE rights SET active = false, deleted_at = current_epoch() WHERE entity = $1 AND uid = ANY($2)"
 	_, err := dal.db.Exec(context.Background(), query, req.Entity, req.Rights)
 	if err != nil {
 		return &RevokeRightsResponse{Valid: false, Error: err.Error()}, err
