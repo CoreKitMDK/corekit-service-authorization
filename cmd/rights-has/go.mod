@@ -3,7 +3,7 @@ module function
 go 1.24.4
 
 require (
-	github.com/CoreKitMDK/corekit-service-authorization/v2 v2.0.2
+	github.com/CoreKitMDK/corekit-service-authorization/v2 v2.0.4
 	github.com/CoreKitMDK/corekit-service-core/v2 v2.0.0-20250629085202-db1ab1f3d980
 	github.com/CoreKitMDK/corekit-service-logger/v2 v2.0.6
 	github.com/google/uuid v1.6.0
